@@ -2,20 +2,38 @@
 
 using namespace std;
 
+/* key:
+   a = 97
+   n = 110
+   g = 103
+   e = 101
+   l = 108
+   i = 105
+   c = 99
+   blank = 48
+*/
 vector<vector<char>> failed;  //placeholder for failed state
 
 vector<vector<char>> goalState = {{97, 110, 103},  //already solved angelica puzzle
                                   {101, 108, 105},
                                   {99, 97, 48}};
-
-                                  //add nore easy,medium,hard
+vector<vector<char>> hard =      {{48, 99, 110}, //depth 24 puzzle similar to 8 puzzle depth  
+                                  {101, 105, 97},
+                                  {103, 108, 97}};
+vector<vector<char>> medium =    {{97, 103, 105}, //depth 12
+                                  {108, 48, 99},
+                                  {101, 97, 110}};
+vector<vector<char>> easy =      {{97, 110, 103}, //depth 4 
+                                  {108, 48, 105},
+                                  {101, 99, 97}};
+                                  
 struct Node
 {
-    vector<vector<char>> puzzle;
+    vector<vector<char>> puzzle; //current config of the puzzle
     int PositionOfZeroRow;
     int PositionOfZeroColumn;
-    vector<string> solutionPath;
-    int heuristic;
+    vector<string> solutionPath; // holds the set of moves needed to reach goal state
+    int heuristic; //the heuristic score
 };
 
 struct Heuristic
@@ -26,7 +44,7 @@ struct Heuristic
     }
 };
 
-void createPuzzle(vector<vector<char>>& puzz)
+void createPuzzle(vector<vector<char>>& puzz) 
 {
     char input2, input3, input4; 
     cout << "Enter the configuration of the puzzle, enter a \"0\" for the blank, and enter only valid puzzles.\n";
@@ -292,7 +310,31 @@ int main()
 
     if (input == 1)
     {
-        //add hard puzzles
+        cout<<"Choose a sample puzzle by entering the number:\n";
+        cout<<"1. Easy\n";
+        cout<<"2. Medium\n";
+        cout<<"3. Hard\n";
+        cout<<"4. Solved\n\n";
+
+        cin >> input;
+
+        if (input == 1)
+        {
+            puzz = easy;
+        }
+        else if (input == 2)
+        {
+            puzz = medium;
+        }
+        else if (input == 3)
+        {
+            puzz = hard;
+        }
+        else if (input == 4)
+        {
+            puzz = goalState;
+        }
+                    
     }
     else if (input == 2)
     {
